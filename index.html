@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>You are my life</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff758f;
+            --gold: #d4af37;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg: #030303;
+            --glow-shadow: 0 0 20px rgba(255, 77, 109, 0.3);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            margin: 0; 
+            background: radial-gradient(circle at center, #2b0b14 0%, #030303 100%);
+            color: #fff; 
+            font-family: 'Cairo', 'Segoe UI', sans-serif; 
+            overflow: hidden; 
+            height: 100vh;
+        }
+
+        body::before {
+            content: ""; position: fixed; inset: 0;
+            background:
+                radial-gradient(circle at 50% 28%, rgba(255, 77, 109, 0.30), transparent 30%),
+                radial-gradient(circle at 15% 80%, rgba(255, 117, 143, 0.18), transparent 28%),
+                radial-gradient(circle at 85% 75%, rgba(255, 77, 109, 0.14), transparent 25%);
+            z-index: -2; animation: softAura 6s ease-in-out infinite alternate; pointer-events: none;
+        }
+
+        body::after {
+            content: "♥"; position: fixed; font-size: 240px; color: rgba(255, 77, 109, 0.045);
+            top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-12deg); z-index: -1;
+            filter: blur(1px); pointer-events: none;
+        }
+
+        @keyframes softAura {
+            from { opacity: 0.75; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.04); }
+        }
+
+        /* --- الأزرار --- */
+        .btn-style { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: white; border: none; padding: 18px 30px; border-radius: 20px; font-weight: 900; cursor: pointer; width: 100%; transition: 0.3s; box-shadow: 0 10px 20px rgba(255,77,109,0.3); font-size: 16px; letter-spacing: 0.3px; }
+        .btn-style:hover { transform: scale(1.05); box-shadow: 0 15px 25px rgba(255,77,109,0.5); }
+        .btn-outline { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 15px 35px; border-radius: 50px; cursor: pointer; margin-top: 40px; font-weight: 600; transition: 0.3s; display: inline-block; font-size: 15px;}
+        .btn-outline:hover { background: rgba(212, 175, 55, 0.1); transform: scale(1.05); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+
+        /* --- الصفحة 1: الدخول --- */
+        #page-1 { height: 100vh; display: flex; align-items: center; justify-content: center; background: transparent; position: fixed; width: 100%; z-index: 9999; transition: 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .login-card { background: var(--glass); backdrop-filter: blur(25px); padding: 48px 28px 36px; border-radius: 40px; border: 1px solid var(--glass-border); text-align: center; width: 90%; max-width: 410px; box-shadow: 0 0 40px rgba(255, 77, 109, 0.15), 0 18px 60px rgba(0,0,0,0.45); position: relative; overflow: hidden; }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(39px, 12vw, 61px); margin: 0 0 18px; font-weight: 900; background: linear-gradient(135deg, #ffffff 10%, #ffd1dc 44%, var(--primary) 84%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(255,77,109,0.32)); }
+        .hero-names { font-family: 'Cairo', serif; font-size: clamp(27px, 7.5vw, 42px); font-weight: 900; margin: 0; color: #fff; display: inline-block; padding: 12px 24px; border-radius: 999px; background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.10); box-shadow: inset 0 0 18px rgba(255,77,109,0.08), 0 0 25px rgba(255,77,109,0.12); }
+        .hero-heart { width: 46px; height: 46px; display: inline-flex; align-items: center; justify-content: center; margin: 14px auto 4px; border-radius: 50%; background: rgba(255, 77, 109, 0.12); color: var(--primary); box-shadow: 0 0 22px rgba(255,77,109,0.28); animation: heartBeat 1.7s ease-in-out infinite; }
+        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+        .hero-line { width: 92px; height: 3px; margin: 20px auto 26px; border-radius: 999px; background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent); box-shadow: 0 0 16px rgba(255,77,109,0.48); }
+        
+        .password-container { margin-bottom: 20px; }
+        .pass-input { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 77, 109, 0.3); padding: 12px 20px; border-radius: 20px; color: #fff; font-family: 'Cairo', sans-serif; text-align: center; width: 80%; outline: none; transition: 0.3s; backdrop-filter: blur(5px); }
+        .pass-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(255, 77, 109, 0.4); background: rgba(255, 255, 255, 0.08); }
+        .error-msg { color: var(--primary); font-size: 13px; margin-top: 8px; font-weight: 600; display: none; text-shadow: 0 0 5px rgba(255, 77, 109, 0.5); }
+
+        /* --- الصفحة 2: العداد --- */
+        #page-2 { display: none; opacity: 0; height: 100vh; position: relative; z-index: 5; transition: 1s; background: transparent; flex-direction: column; align-items: center; justify-content: center; overflow-y: auto; }
+        .engagement-content { text-align: center; padding: 20px; width: 100%; max-width: 600px; margin: 0 auto; }
+        .eng-heart { color: var(--primary); font-size: 45px; margin-bottom: 10px; filter: drop-shadow(0 0 15px var(--primary)); animation: heartBeat 2s infinite ease-in-out; }
+        .eng-title { font-family: 'Cairo', sans-serif; font-size: clamp(28px, 6vw, 38px); font-weight: 900; background: linear-gradient(45deg, #fff, var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 5px; filter: drop-shadow(0 0 10px rgba(255,77,109,0.2)); }
+        .eng-date { color: var(--gold); font-family: 'Cairo', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 1px; margin-bottom: 40px; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+        .new-counter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; direction: ltr; }
+        .glass-counter-card { background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01)); border: 1px solid var(--glass-border); border-radius: 25px; padding: 25px 5px; text-align: center; backdrop-filter: blur(15px); transition: 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 0 15px rgba(255,77,109,0.05); }
+        .glass-counter-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,77,109,0.15); }
+        .counter-val { display: inline-block; font-size: 36px; font-weight: 900; color: #fff; text-shadow: 0 0 15px var(--primary); font-family: 'Playfair Display', serif; }
+        .counter-label { display: block; font-size: 13px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; font-weight: 600; font-family: 'Cairo', sans-serif; }
+        .number-pop { animation: popTransition 0.3s ease-out; }
+        @keyframes popTransition { 0% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1.08); text-shadow: 0 0 25px var(--primary); color: var(--secondary); } 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 15px var(--primary); color: #fff; } }
+
+        /* --- الصفحة 3: Our Story --- */
+        #page-3 { display: none; opacity: 0; height: 100vh; position: relative; z-index: 5; transition: 1s; background: transparent; overflow-y: auto; padding: 60px 0; scroll-behavior: smooth; }
+        .story-header { text-align: center; margin-bottom: 50px; }
+        .story-header i { font-size: 40px; color: var(--primary); margin-bottom: 15px; filter: drop-shadow(0 0 15px var(--primary)); animation: heartBeat 2s infinite ease-in-out; }
+        .story-title { font-family: 'Cairo', sans-serif; font-size: clamp(35px, 8vw, 50px); font-weight: 900; background: linear-gradient(45deg, #fff, var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; filter: drop-shadow(0 0 10px rgba(255,77,109,0.2)); }
+        
+        .gallery-container { max-width: 550px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 45px; }
+        
+        .story-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 35px;
+            padding: 15px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.05);
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            text-align: center;
+        }
+        .story-card.show { opacity: 1; transform: translateY(0) scale(1); }
+        .story-card:hover { transform: scale(1.02); border-color: rgba(255, 77, 109, 0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 25px rgba(255, 77, 109, 0.2); }
+        .story-card img { width: 100%; display: block; border-radius: 25px; transition: transform 0.6s ease; filter: brightness(0.95); cursor: pointer; margin-bottom: 15px; }
+        .story-card:hover img { transform: scale(1.03); filter: brightness(1.05); }
+        .story-card-text { font-family: 'Cairo', sans-serif; font-size: 18px; line-height: 1.6; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.6); font-weight: 600; padding: 0 10px; }
+
+        /* --- الصفحة 5: الظرف والرسالة --- */
+        #page-5 { display: none; opacity: 0; height: 100vh; position: relative; z-index: 5; transition: 1s; background: transparent; overflow-y: auto; flex-direction: column; align-items: center; justify-content: center; }
+        
+        .envelope-wrapper { position: relative; width: 310px; height: 200px; margin: 40px auto; cursor: pointer; transition: transform 0.4s ease; perspective: 1000px; }
+        .envelope-wrapper:hover { transform: translateY(-10px) scale(1.02); }
+        .envelope-body { position: absolute; inset: 0; background: linear-gradient(135deg, var(--secondary), #e03c5b); border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 25px rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; z-index: 2; border: 1px solid rgba(255,255,255,0.2); text-align: center; padding: 10px; }
+        .envelope-flap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #ff8fa3, var(--secondary)); clip-path: polygon(0 0, 50% 55%, 100% 0); transform-origin: top; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); z-index: 3; border-radius: 12px 12px 0 0; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2)); }
+        .envelope-text { color: white; font-weight: 800; font-size: 18px; z-index: 4; text-shadow: 0 3px 10px rgba(0,0,0,0.3); font-family: 'Cairo', sans-serif; pointer-events: none; }
+        .envelope-wrapper.open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
+        
+        .letter-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.5s ease; backdrop-filter: blur(15px); }
+        .letter-overlay.active { display: flex; opacity: 1; }
+        .letter-card { background: var(--glass); backdrop-filter: blur(40px); border: 1px solid var(--gold); border-radius: 25px; width: 92%; max-width: 500px; max-height: 85vh; overflow-y: auto; padding: 40px 25px; text-align: right; direction: rtl; color: #fff; box-shadow: 0 25px 60px rgba(0,0,0,0.6), inset 0 0 20px rgba(212,175,55,0.15); transform: scale(0.8) translateY(40px); opacity: 0; transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .letter-overlay.active .letter-card { transform: scale(1) translateY(0); opacity: 1; }
+        
+        .letter-card::-webkit-scrollbar { width: 5px; }
+        .letter-card::-webkit-scrollbar-track { background: transparent; }
+        .letter-card::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        .letter-card p { font-size: 16px; line-height: 1.8; margin-bottom: 18px; font-family: 'Cairo', sans-serif; text-shadow: 0 1px 3px rgba(0,0,0,0.4); letter-spacing: 0.3px; }
+
+        /* --- الصفحة 6 الجديدة: الوعود المربعة --- */
+        #page-6 { display: none; opacity: 0; height: 100vh; position: relative; z-index: 5; transition: 1s; background: transparent; overflow-y: auto; flex-direction: column; align-items: center; justify-content: center; padding: 40px 0; }
+        
+        .promises-box {
+            background: linear-gradient(145deg, rgba(255, 77, 109, 0.05), rgba(212, 175, 55, 0.05));
+            border: 2px solid var(--gold);
+            padding: 40px 30px;
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 30px rgba(212,175,55,0.1);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1s ease;
+        }
+        #page-6.active-page .promises-box { opacity: 1; transform: scale(1); }
+        
+        .promises-list { list-style: none; padding: 0; margin: 25px 0 0 0; text-align: right; }
+        .promises-list li { font-size: 18px; line-height: 1.8; margin-bottom: 20px; color: #fff; font-family: 'Cairo', sans-serif; font-weight: 600; display: flex; align-items: center; gap: 12px; text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        .promises-list li i { color: var(--primary); font-size: 20px; filter: drop-shadow(0 0 5px var(--primary)); }
+
+        /* --- الصفحة 7: رسالة النهاية --- */
+        #page-7 { display: none; opacity: 0; position: fixed; inset: 0; z-index: 10000; background: transparent; transition: 1.5s; overflow-y: auto; }
+        .secret-content { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
+        .floating-message { background: rgba(255,255,255,0.03); border: 1px solid var(--gold); padding: 45px 30px; border-radius: 50px; backdrop-filter: blur(40px); box-shadow: 0 0 60px rgba(212, 175, 55, 0.15); max-width: 380px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* --- Lightbox للصور --- */
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 100000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; backdrop-filter: blur(15px); }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 15px; box-shadow: 0 0 40px rgba(255,77,109,0.5); transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .lightbox.active img { transform: scale(1); }
+        .lightbox-close { position: absolute; top: 25px; right: 30px; color: #fff; font-size: 35px; cursor: pointer; text-shadow: 0 0 10px var(--primary); transition: 0.3s; z-index: 2; }
+        .lightbox-close:hover { color: var(--primary); transform: scale(1.1); }
+
+        /* خلفية القلوب */
+        .hearts-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .heart-particle { position: absolute; color: var(--primary); opacity: 0.4; animation: fall linear infinite; filter: drop-shadow(0 0 5px var(--primary)); }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop src="https://d.top4top.io/m_3827zfy1z1.mp4"></audio>
+
+    <div class="hearts-bg" id="hearts-container"></div>
+
+    <section id="page-1">
+        <div id="loginCard" class="login-card animate__animated animate__zoomIn">
+            <h1 class="hero-title" style="margin-top: 4px;">You are my life</h1>
+            <div class="hero-heart"><i class="fa-solid fa-heart"></i></div>
+            <h2 class="hero-names">مهاب &amp; جنه</h2>
+            <div class="hero-line"></div>
+            
+            <div class="password-container">
+                <input type="password" id="passInput" class="pass-input" placeholder="أدخل كلمة السر...">
+                <div id="errorMsg" class="error-msg">كلمة السر غير صحيحة 💔</div>
+            </div>
+
+            <!-- التعديل هنا ليكون "دوس هنا" -->
+            <button class="btn-style" onclick="checkPassword()">دوس هنا♥🙈</button>
+        </div>
+    </section>
+
+    <section id="page-2">
+        <div class="engagement-content">
+            <div class="eng-heart animate__animated animate__fadeInDown animate__delay-1s"><i class="fa-solid fa-heart"></i></div>
+            <h2 class="eng-title animate__animated animate__fadeInUp animate__delay-1s">Since the story began</h2>
+            <div class="eng-date animate__animated animate__fadeInUp" style="animation-delay: 1.2s;">سنتين | 24 شهر | 730 يوم</div>
+
+            <div class="new-counter-grid">
+                <div class="glass-counter-card animate__animated animate__zoomIn" style="animation-delay: 1.4s;"><span id="eng-years" class="counter-val">0</span><span class="counter-label">سنين (Years)</span></div>
+                <div class="glass-counter-card animate__animated animate__zoomIn" style="animation-delay: 1.5s;"><span id="eng-months" class="counter-val">0</span><span class="counter-label">شهور (Months)</span></div>
+                <div class="glass-counter-card animate__animated animate__zoomIn" style="animation-delay: 1.6s;"><span id="eng-days" class="counter-val">0</span><span class="counter-label">أيام (Days)</span></div>
+                <div class="glass-counter-card animate__animated animate__zoomIn" style="animation-delay: 1.7s;"><span id="eng-hours" class="counter-val">0</span><span class="counter-label">ساعات (Hours)</span></div>
+                <div class="glass-counter-card animate__animated animate__zoomIn" style="animation-delay: 1.8s;"><span id="eng-minutes" class="counter-val">0</span><span class="counter-label">دقائق (Minutes)</span></div>
+                <div class="glass-counter-card animate__animated animate__zoomIn" style="animation-delay: 1.9s;"><span id="eng-seconds" class="counter-val">0</span><span class="counter-label">ثواني (Seconds)</span></div>
+            </div>
+
+            <div class="animate__animated animate__fadeInUp" style="animation-delay: 2.5s;">
+                <button class="btn-outline" onclick="goToPage3()">التالي <i class="fa-solid fa-arrow-left" style="margin-right: 5px;"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="page-3">
+        <div class="story-header animate__animated animate__fadeInDown">
+            <i class="fa-solid fa-heart"></i>
+            <h2 class="story-title">حكايتنا 💗</h2>
+        </div>
+        
+        <div id="galleryContainer" class="gallery-container">
+            <div class="story-card show">
+                <img src="https://l.top4top.io/p_382794s1l1.jpg" loading="lazy" onclick="openPhotoLightbox(this.src)" alt="Photo 1">
+                <div class="story-card-text">
+                    فاكر الورده دي ي حبيبي؟<br>
+                    لما جبتهالك؟والست فضلت تدعي ليا وليك نكمل؟🥹🎀<br>
+                    وانت فرحت بيها اوي
+                </div>
+            </div>
+            <div class="story-card show">
+                <img src="https://k.top4top.io/p_382729kdh1.jpg" loading="lazy" onclick="openPhotoLightbox(this.src)" alt="Photo 2">
+                <div class="story-card-text">
+                    ودي كمان ي حبيبي؟لما قلتلي بحبك🥹🎀
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; padding-top: 50px; padding-bottom: 50px;">
+            <button class="btn-outline" onclick="goToPage5()">التالي <i class="fa-solid fa-arrow-left" style="margin-right: 5px;"></i></button>
+        </div>
+    </section>
+
+    <section id="page-5">
+        <div style="text-align: center; padding: 20px; width: 100%;">
+            <h2 class="eng-title animate__animated animate__fadeInDown" style="font-size: clamp(30px, 8vw, 42px); margin-bottom: 30px;">رسالة من القلب 💌</h2>
+            
+            <div class="envelope-wrapper animate__animated animate__zoomIn" style="animation-delay: 0.4s;" onclick="openLetter()">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body">
+                    <div class="envelope-text">مسدج ثغننه ل قطتي🐥</div>
+                </div>
+            </div>
+
+            <div class="animate__animated animate__fadeInUp" style="animation-delay: 1s; margin-top: 50px;">
+                <button class="btn-outline" onclick="goToPage6()">التالي <i class="fa-solid fa-arrow-left" style="margin-right: 5px;"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <div id="letter-overlay" class="letter-overlay">
+        <div class="letter-card">
+            <h3 style="color: var(--primary); font-family: 'Cairo', sans-serif; font-size: 24px; margin-top: 0; margin-bottom: 20px; text-align: center;">إلى قطتي المفضل 🐥</h3>
+            
+            <p>بص ي صغننن</p>
+            <p>لو بتقرأ الرساله دي دلوقتي(🐥بحبك) 🥺🌚</p>
+            <p>عايزه اقولك اني بجد بحبك اوي</p>
+            <p>والبعد طال؟والله</p>
+            <p>قلبي بيحبك اوي ي حبيبي</p>
+            <p>حياتي من غيرك مش حياه</p>
+            <p>ومفيهاش نور من غير وجودك جمبي ي حبيبي🥹🫂</p>
+            <p>عيزاك تعرف اني بحبك اوي ي مهاب</p>
+            <p>وانك بتوحشني ف كل ثانيه ودقيقه وساعه🫂🌚</p>
+            <p>واشتياقي دائما بيزيد</p>
+            <p>اني ابقي دائما فحضنك ي حبيبي،💗🎀</p>
+            <p>عدينا بالمر والحلو سوا</p>
+            <p>دلوقتي معتناش مع بعض💔</p>
+            <p>بس انا عارفه إن قلبك الثغنن 🌚🎀 ده بيحبني اوي اوي اوي اوي اوي اويً</p>
+            <p>من اول يوم وعيوني شافتك؟ حبوك اوي  🥹🎀</p>
+            <p>ولغايه دلوقتي رغم المحاولات دي كلها! فشلت ف اننا ونرجع 🫂🌚</p>
+            <p>ف قلت اعمل هديه بسيطه لعيونك ي مهاب🥹🫂</p>
+            <p>بحبك اوي ي نن عيني</p>
+            
+            <div style="text-align: center; margin-top: 35px;">
+                <button class="btn-style" onclick="closeLetter()" style="font-family: 'Cairo', sans-serif;">إغلاق الرسالة 💌</button>
+            </div>
+        </div>
+    </div>
+
+    <section id="page-6">
+        <div style="text-align: center; width: 100%; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div class="animate__animated animate__fadeInDown" style="margin-bottom: 30px;">
+                <i class="fa-solid fa-heart" style="font-size: 35px; color: var(--primary); filter: drop-shadow(0 0 15px var(--primary)); margin-bottom: 15px; animation: heartBeat 2s infinite;"></i>
+                <h2 class="eng-title" style="font-size: 40px; letter-spacing: 2px;">M &amp; J</h2>
+            </div>
+            
+            <div class="promises-box">
+                <h3 style="color: var(--gold); font-family: 'Cairo', sans-serif; font-size: 24px; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 10px;">وعود قلبي لك 🌸</h3>
+                <ul class="promises-list">
+                    <li><i class="fa-solid fa-heart"></i> اني دائما جمبك وهفضل سند ليك💗</li>
+                    <li><i class="fa-solid fa-heart"></i> اني عمري ما هسيبك🫂</li>
+                    <li><i class="fa-solid fa-heart"></i> إن دائما هنكون لبعض🐥💗</li>
+                    <li><i class="fa-solid fa-heart"></i> إن دائما هرسم الضحكه علي خدوك🥹</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn-outline" onclick="goToPage7()">التالي <i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="page-7">
+        <div class="secret-content">
+            <div class="floating-message animate__animated animate__fadeInUp" style="max-width: 650px; padding: 60px 40px; border-color: rgba(255, 77, 109, 0.4); box-shadow: 0 0 60px rgba(255, 77, 109, 0.25);">
+                <i class="fa-solid fa-heart" style="color:var(--primary); font-size:55px; margin-bottom:25px; filter: drop-shadow(0 0 20px var(--primary)); animation: heartBeat 2s infinite;"></i>
+                <h1 style="color:#fff; margin-bottom:40px; font-size: clamp(35px, 7vw, 55px); font-family: 'Cairo', serif; text-shadow: 0 0 25px rgba(255, 77, 109, 0.5); background: linear-gradient(45deg, #ffffff, var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    معاً للأبد ❤️
+                </h1>
+                <button class="btn-outline" onclick="location.reload()" style="font-family: 'Cairo', serif; font-size: 18px; padding: 15px 45px; direction: ltr;">
+                    <i class="fa-solid fa-rotate-left" style="margin-right: 10px;"></i> العودة للبداية
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div id="image-lightbox" class="lightbox" onclick="closePhotoLightbox(event)">
+        <i class="fa-solid fa-times lightbox-close" onclick="closePhotoLightbox(event)"></i>
+        <img id="lightbox-img" src="" alt="Full Screen Photo">
+    </div>
+
+    <script>
+        function playAudio() {
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(err => {
+                console.log("برجاء التفاعل مع الصفحة أولاً لتشغيل الأغنية تلقائياً.");
+            });
+        }
+
+        document.addEventListener('click', function() {
+            playAudio();
+        }, { once: true });
+
+        function checkPassword() {
+            const pass = document.getElementById('passInput').value;
+            const err = document.getElementById('errorMsg');
+            const card = document.getElementById('loginCard');
+            
+            // التعديل هنا: يقبل الباسورد بجميع الأشكال سواء I أو l 
+            if (pass.toUpperCase() === 'I LUV U' || pass === 'l LUV U') { 
+                err.style.display = 'none'; 
+                playAudio(); 
+                goToPage2(); 
+            } 
+            else {
+                err.style.display = 'block'; card.classList.remove('animate__zoomIn');
+                card.classList.add('animate__shakeX');
+                setTimeout(() => card.classList.remove('animate__shakeX'), 1000);
+            }
+        }
+        document.getElementById('passInput').addEventListener('keypress', e => { if(e.key === 'Enter') checkPassword(); });
+
+        function goToPage2() {
+            document.getElementById('page-1').style.transform = 'translateY(-100%) scale(0.9)';
+            document.getElementById('page-1').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('page-1').style.display = 'none';
+                document.getElementById('page-2').style.display = 'flex';
+                setTimeout(() => document.getElementById('page-2').style.opacity = '1', 50);
+                startEngagementCounter(); createHearts();
+            }, 800);
+        }
+
+        function goToPage3() {
+            document.getElementById('page-2').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('page-2').style.display = 'none';
+                document.getElementById('page-3').style.display = 'block';
+                window.scrollTo(0, 0);
+                setTimeout(() => document.getElementById('page-3').style.opacity = '1', 50);
+                buildGallery();
+            }, 800);
+        }
+
+        function goToPage5() {
+            document.getElementById('page-3').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('page-3').style.display = 'none';
+                const p5 = document.getElementById('page-5');
+                p5.style.display = 'flex';
+                window.scrollTo(0, 0);
+                setTimeout(() => p5.style.opacity = '1', 50);
+            }, 800);
+        }
+
+        function goToPage6() {
+            document.getElementById('page-5').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('page-5').style.display = 'none';
+                const p6 = document.getElementById('page-6');
+                p6.style.display = 'flex';
+                p6.classList.add('active-page');
+                window.scrollTo(0,0);
+                setTimeout(() => p6.style.opacity = '1', 50);
+            }, 800);
+        }
+
+        function goToPage7() {
+            document.getElementById('page-6').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('page-6').style.display = 'none';
+                const p7 = document.getElementById('page-7');
+                p7.style.display = 'block';
+                window.scrollTo(0,0);
+                setTimeout(() => p7.style.opacity = '1', 50);
+            }, 800);
+        }
+
+        function buildGallery() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            document.querySelectorAll('.story-card').forEach(card => observer.observe(card));
+        }
+
+        function openLetter() {
+            const envelope = document.querySelector('.envelope-wrapper');
+            envelope.classList.add('open'); 
+            setTimeout(() => {
+                const overlay = document.getElementById('letter-overlay');
+                overlay.classList.add('active');
+            }, 500); 
+        }
+
+        function closeLetter() {
+            const overlay = document.getElementById('letter-overlay');
+            overlay.classList.remove('active'); 
+            setTimeout(() => {
+                const envelope = document.querySelector('.envelope-wrapper');
+                envelope.classList.remove('open');
+            }, 400);
+        }
+
+        function openPhotoLightbox(src) {
+            const lb = document.getElementById('image-lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lb.classList.add('active');
+        }
+
+        function closePhotoLightbox(e) {
+            if(e.target.id === 'image-lightbox' || e.target.classList.contains('lightbox-close')) {
+                document.getElementById('image-lightbox').classList.remove('active');
+                setTimeout(() => document.getElementById('lightbox-img').src = "", 400); 
+            }
+        }
+
+        function startEngagementCounter() {
+            // *** التعديل الأساسي هنا: استخدام تاريخ بداية حقيقي وثابت ***
+            // بناءً على ذكر "سنتين" في النص، تاريخ البداية هو 24 يونيو 2024
+            // يمكنك تغيير هذا التاريخ إلى التاريخ الحقيقي لبداية علاقتكما
+            const startDate = new Date(2024, 5, 24); // الشهور في JavaScript تبدأ من 0، لذا 5 = يونيو
+            // يمكنك أيضاً تحديد الوقت بدقة أكبر: new Date(2024, 5, 24, 12, 0, 0) مثلاً للساعة 12 ظهراً
+            
+            // للتأكد من أن العداد يعمل بشكل صحيح حتى لو تم تحميل الصفحة قبل هذا التاريخ
+            // (لن يحدث ذلك عملياً لكنه إجراء احترازي)
+            const nowCheck = new Date();
+            if (startDate > nowCheck) {
+                console.warn("تاريخ البداية في المستقبل! العداد سيظهر أصفاراً.");
+            }
+            
+            // تحديث العداد كل ثانية
+            const counterInterval = setInterval(() => {
+                const now = new Date();
+                
+                // حساب الفرق بالمللي ثانية
+                let diff = now - startDate;
+                
+                // إذا كان التاريخ في المستقبل (افتراضياً)، نجعل العداد صفراً
+                if (diff < 0) diff = 0;
+                
+                // تحويل الفرق إلى وحدات زمنية
+                const totalSeconds = Math.floor(diff / 1000);
+                const totalMinutes = Math.floor(totalSeconds / 60);
+                const totalHours = Math.floor(totalMinutes / 60);
+                const totalDays = Math.floor(totalHours / 24);
+                
+                // حساب السنوات والشهور والأيام المتبقية
+                let y = now.getFullYear() - startDate.getFullYear();
+                let m = now.getMonth() - startDate.getMonth();
+                let d = now.getDate() - startDate.getDate();
+                let h = now.getHours() - startDate.getHours();
+                let min = now.getMinutes() - startDate.getMinutes();
+                let s = now.getSeconds() - startDate.getSeconds();
+
+                // تصحيح القيم السالبة
+                if (s < 0) { s += 60; min--; }
+                if (min < 0) { min += 60; h--; }
+                if (h < 0) { h += 24; d--; }
+                if (d < 0) { 
+                    m--; 
+                    // الحصول على آخر يوم في الشهر السابق
+                    const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                    d += prevMonth.getDate(); 
+                }
+                if (m < 0) { m += 12; y--; }
+                
+                // التأكد من عدم وجود قيم سالبة
+                y = Math.max(0, y);
+                m = Math.max(0, m);
+                d = Math.max(0, d);
+                h = Math.max(0, h);
+                min = Math.max(0, min);
+                s = Math.max(0, s);
+
+                // تحديث العناصر في الصفحة
+                updateVal('eng-years', y);
+                updateVal('eng-months', m);
+                updateVal('eng-days', d);
+                updateVal('eng-hours', h);
+                updateVal('eng-minutes', min);
+                updateVal('eng-seconds', s);
+                
+            }, 1000); // التحديث كل ثانية ليكون العداد لايف
+            
+            // تخزين معرف المؤقت لإمكانية إيقافه لاحقاً إذا لزم الأمر
+            // (ليس ضرورياً في هذه الحالة لكنه ممارسة جيدة)
+            window._counterInterval = counterInterval;
+        }
+
+        function updateVal(id, val) {
+            const el = document.getElementById(id);
+            if (el && el.innerText !== String(val)) {
+                el.innerText = val;
+                el.classList.remove('number-pop'); 
+                void el.offsetWidth; // إعادة تشغيل الأنيميشن
+                el.classList.add('number-pop');
+            }
+        }
+
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            setInterval(() => {
+                const h = document.createElement('i');
+                h.className = Math.random() > 0.8 ? 'fa-solid fa-star heart-particle' : 'fa-solid fa-heart heart-particle';
+                h.style.left = Math.random() * 100 + 'vw'; 
+                h.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                h.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                container.appendChild(h); 
+                setTimeout(() => h.remove(), 6000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
